@@ -1,15 +1,21 @@
 class MailiieSmtpServer < MiniSmtpServer
 
   def new_message_event(message_hash)
-    puts "# New email received:"
-    puts "-- From: #{message_hash[:from]}"
-    puts "-- To:   #{message_hash[:to]}"
-    puts "--"
-    puts "-- " + message_hash[:data].gsub(/\r\n/, "\r\n-- ")
-    puts
-    puts message_hash.to_json
+    mail = Mail.read_from_string(message_hash[:data])
+    from = message_hash[:from]
+    to = message_hash[:to]
+    body = mail.body
+    subject = mail.subject
 
-    Message.create({from: message_hash[:from], body: message_hash[:data]})
+
+    puts "--- START ---"
+    puts "From : "+from
+    puts "To : "+to
+    puts "Subject : "+subject
+    puts body
+    puts "--- END ---"
+
+    Message.create({from: from, body: body})
   end
 
 end
