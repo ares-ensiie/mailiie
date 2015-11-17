@@ -23,6 +23,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem "haml-rails", "~> 0.9"
 
+gem "mini-smtp-server"
+gem 'gserver', '~> 0.0.1'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
