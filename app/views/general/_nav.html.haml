@@ -1,0 +1,35 @@
+%header
+  .navbar-fixed
+    %nav.blue.darken-1
+      .nav-wrapper
+        %a.button-collapse{"data-activates" => "mobile-demo", :href => "#"}
+          %i.material-icons menu
+        %ul#nav-mobile.right.hide-on-med-and-down
+          %li
+            %a.dropdown-button{"data-activates" => "dropdown1", :href => "sass.html"}
+              kobersi2017
+              %i.material-icons.right arrow_drop_down
+            %ul#dropdown1.dropdown-content
+              %li
+                %a{:href => "#!"} one
+              %li
+                %a{:href => "#!"} two
+              %li.divider
+              %li
+                %a{:href => "#!"} three
+        %ul#slide-out.side-nav.fixed.grey.darken-4
+          %li.ensiie-mailiie MAILIIE
+          %li.normal-li
+            = link_to 'Créer une mailing liste', new_mailing_path
+          %li.normal-li
+            = link_to 'Gérer mes mailing listes', mailings_manage_path  
+          %li.normal-li
+            = link_to "S'incrire à une mailing liste", mailings_path
+        %ul#mobile-demo.side-nav.grey.darken-4
+          %li.ensiie-mailiie MAILIIE
+          %li.normal-li
+            = link_to 'Créer une mailing liste', new_mailing_path
+          %li.normal-li
+            = link_to 'Gérer mes mailing listes', mailings_manage_path  
+          %li.normal-li
+            = link_to "S'incrire à une mailing liste", mailings_path

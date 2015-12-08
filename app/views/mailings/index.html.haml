@@ -1,0 +1,16 @@
+%h2 Les mailing listes
+
+- @mailings.each do |mailing|
+  .col.s12.m4
+    .card
+      .card-content
+        %p
+          = mailing.nom
+        %p
+          = mailing.mail
+        %p
+          = mailing.type_mailing
+      .card-action
+        %a
+          S'inscrire
+

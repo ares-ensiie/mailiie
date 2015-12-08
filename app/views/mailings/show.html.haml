@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Nom:
+  = @mailing.nom
+%p
+  %b Mail:
+  = @mailing.mail
+%p
+  %b Type mailing:
+  = @mailing.type_mailing
+
+= link_to 'Edit', edit_mailing_path(@mailing)
+\|
+= link_to 'Back', mailings_path

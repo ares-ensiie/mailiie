@@ -1,0 +1,19 @@
+%h2 Gérer mes mailing listes
+
+- @mailings.each do |mailing|
+  .col.s12.m4
+    .card
+      .card-content
+        %b
+          %p
+            = mailing.nom
+        %p
+          = mailing.mail
+        %p
+          = mailing.type_mailing
+      .card-action
+        =link_to 'éditer', edit_mailing_path(mailing)
+        =link_to 'supprimer', mailing, :method => :delete
+        %br
+        %a Gérer les utilisateurs
+
