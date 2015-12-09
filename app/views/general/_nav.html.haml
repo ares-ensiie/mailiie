@@ -7,16 +7,11 @@
         %ul#nav-mobile.right.hide-on-med-and-down
           %li
             %a.dropdown-button{"data-activates" => "dropdown1", :href => "sass.html"}
-              kobersi2017
+              = current_user.uid
               %i.material-icons.right arrow_drop_down
             %ul#dropdown1.dropdown-content
               %li
-                %a{:href => "#!"} one
-              %li
-                %a{:href => "#!"} two
-              %li.divider
-              %li
-                %a{:href => "#!"} three
+                = link_to "Déconnexion", destroy_user_session_path, :method => :delete
         %ul#slide-out.side-nav.fixed.grey.darken-4
           %li.ensiie-mailiie MAILIIE
           %li.normal-li

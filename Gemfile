@@ -23,6 +23,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem "haml-rails", "~> 0.9"
 
+gem 'devise'
+gem 'net-ldap'
+
 gem "mini-smtp-server"
 gem 'gserver', '~> 0.0.1'
 

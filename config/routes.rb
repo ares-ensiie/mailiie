@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { sessions: "users/sessions" }, only: :sessions
   get 'mailings/manage' => 'mailings#manage'
+  get 'mailings/ajouter/:id' => 'mailings#ajouter', as: "ajouter"
+  get 'mailings/accepter_inscription/:id/:uid' => 'mailings#accepter_inscription', as: "accepter_inscription"
+  get 'mailings/refuser_inscription/:id/:uid' => 'mailings#refuser_inscription', as: "refuser_inscription"
+  get 'mailings/manage_inscriptions/:id' => 'mailings#manage_inscriptions', as: "manage_inscriptions"
+  get 'mailings/demande_inscription/:id' => 'mailings#demande_inscription', as: "demande_inscription"
   resources :mailings
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

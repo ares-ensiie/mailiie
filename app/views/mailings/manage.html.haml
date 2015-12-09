@@ -15,5 +15,5 @@
         =link_to 'éditer', edit_mailing_path(mailing)
         =link_to 'supprimer', mailing, :method => :delete
         %br
-        %a Gérer les utilisateurs
+        = link_to "Gérer les utilisateurs", manage_inscriptions_path(mailing.id)
 

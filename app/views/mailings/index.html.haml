@@ -1,16 +1,20 @@
 %h2 Les mailing listes
 
 - @mailings.each do |mailing|
-  .col.s12.m4
-    .card
-      .card-content
-        %p
-          = mailing.nom
-        %p
-          = mailing.mail
-        %p
-          = mailing.type_mailing
-      .card-action
-        %a
-          S'inscrire
+  - if ! mailing.contains_user_valide(current_user.uid)
+    .col.s12.m4
+      .card
+        .card-content
+          %b
+            = mailing.nom
+          %p
+            = mailing.mail
+          %p
+            = mailing.type_mailing
+        .card-action
+          - if mailing.contains_user_invalide(current_user.uid)
+            %a.deja-fait 
+              Demande déjà envoyée
+          - else
+            = link_to "S'inscrire", demande_inscription_path(mailing.id)
 

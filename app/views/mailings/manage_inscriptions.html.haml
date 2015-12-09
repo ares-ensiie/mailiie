@@ -1,0 +1,38 @@
+= link_to ajouter_path(@mailing.id), class: "btn-floating btn-large waves-effect waves-light ajout-user" do
+  %i.material-icons add
+
+%h2 
+  Gestion de
+  = @mailing.nom
+
+
+%p
+  Inscriptions en attente
+%hr
+
+%table.striped
+  %tbody
+  - @inscriptions_invalide.each do |ins|
+    %tr
+      %td 
+        = ins.uid
+      %td.right-align
+        = link_to 'Valider', accepter_inscription_path(@mailing.id, ins.uid), class: "btn-valider waves-effect waves-light btn"
+        = link_to 'Refuser', refuser_inscription_path(@mailing.id, ins.uid), class: "btn-refuser waves-effect waves-light btn"
+
+%p
+  Inscrits
+%hr
+
+%table.striped
+  %tbody
+  - @inscriptions_valide.each do |ins|
+    -if ins.uid != current_user.uid
+      %tr
+        %td 
+          = ins.uid
+        %td.right-align
+          = link_to 'Supprimer', refuser_inscription_path(@mailing.id, ins.uid), class: "btn-refuser waves-effect waves-light btn"
+
+
+

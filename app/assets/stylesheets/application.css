@@ -66,3 +66,36 @@ input[type=text]:focus:not([readonly]) {
     border-bottom: 1px solid #1E88E5;
     box-shadow: 0 1px 0 0 #1E88E5;
 }
+
+input[type=text]:focus:not([readonly])+label {
+    color: #1E88E5;
+}
+
+input[type=password]:focus:not([readonly]) {
+    border-bottom: 1px solid #1E88E5;
+    box-shadow: 0 1px 0 0 #1E88E5;
+}
+
+input[type=password]:focus:not([readonly])+label {
+    color: #1E88E5;
+}
+
+.card .card-action .deja-fait:hover {
+   color: #B3A6A6;
+}
+
+.card .card-action .deja-fait {
+   color: #B3A6A6;
+}
+
+.btn-valider {
+    background-color: #4CAF50 !important;
+}
+
+.btn-refuser {
+    background-color: #EA5B51 !important;
+}
+
+.ajout-user {
+    float: right;
+}

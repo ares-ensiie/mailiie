@@ -13,7 +13,9 @@
     = render "general/nav"
     %main
       .container.main
+        = flash.to_json
         .row
           .col.s12.m12.l12  
             = yield
     = render "general/footer"
+

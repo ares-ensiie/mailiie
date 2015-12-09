@@ -1,0 +1,24 @@
+.body-connexion {
+  background-color: #1E88E5;
+}
+
+.form-connexion {
+  background-color: white;
+  padding: 50px;
+  padding-bottom: 30px;
+  border-radius: 4px;
+  margin-top: 50px;
+}
+
+.btn-connexion {
+  margin-top: 20px;
+}
+
+
+.input-field .prefix.active {
+  color: #1E88E5;
+}
+
+label.active {
+  color: #1E88E5;
+}
