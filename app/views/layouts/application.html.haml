@@ -5,6 +5,7 @@
     %title Mailiie
     %link{:href => "http://fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}/
     %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css", :rel => "stylesheet"}/
+    %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css", :rel => "stylesheet"}/
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
@@ -13,7 +14,6 @@
     = render "general/nav"
     %main
       .container.main
-        = flash.to_json
         .row
           .col.s12.m12.l12  
             = yield

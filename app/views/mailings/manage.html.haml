@@ -1,19 +1,38 @@
-%h2 Gérer mes mailing listes
+%h2 Mes mailing listes
 
-- @mailings.each do |mailing|
-  .col.s12.m4
-    .card
-      .card-content
-        %b
-          %p
-            = mailing.nom
-        %p
-          = mailing.mail
-        %p
-          = mailing.type_mailing
-      .card-action
-        =link_to 'éditer', edit_mailing_path(mailing)
-        =link_to 'supprimer', mailing, :method => :delete
-        %br
-        = link_to "Gérer les utilisateurs", manage_inscriptions_path(mailing.id)
+.row
+  - @my_mailings.each do |mailing|
+    .col.s12.m4
+      .card
+        .card-content
+          %b
+            %p.one-line
+              = mailing.nom
+          %p.one-line
+            = mailing.mail
+          %p.one-line
+            = mailing.type_mailing
+        .card-action
+          =link_to 'éditer', edit_mailing_path(mailing)
+          =link_to 'supprimer', mailing, :method => :delete
+          %br
+          = link_to "Gérer les utilisateurs", manage_inscriptions_path(mailing.id)
 
+
+
+%h2 Mailing listes où je suis inscrit
+
+.row
+  - @subscribed_mailings.each do |mailing|
+    .col.s12.m4
+      .card
+        .card-content
+          %b
+            %p.one-line
+              = mailing.mailing.nom
+          %p.one-line
+            = mailing.mailing.mail
+          %p.one-line
+            = mailing.mailing.type_mailing
+        .card-action
+          Quitter TO DO

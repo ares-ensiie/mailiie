@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209135800) do
+ActiveRecord::Schema.define(version: 20160316135352) do
 
   create_table "inscriptions", force: :cascade do |t|
     t.integer "mailing_id"
@@ -33,6 +33,12 @@ ActiveRecord::Schema.define(version: 20151209135800) do
   create_table "messages", force: :cascade do |t|
     t.string   "from"
     t.string   "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

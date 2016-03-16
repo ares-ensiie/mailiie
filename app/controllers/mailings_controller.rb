@@ -16,14 +16,18 @@ class MailingsController < ApplicationController
   # GET /mailings/new
   def new
     @mailing = Mailing.new
+    @types = Type.all
   end
 
   # GET /mailings/1/edit
   def edit
+    @types = Type.all
   end
 
   def manage
-    @mailings = Mailing.where(creator: current_user.uid)
+    @my_mailings = Mailing.where(creator: current_user.uid)
+    no_creator = Mailing.where.not(creator: current_user.uid).order(nom: :asc)
+    @subscribed_mailings = Inscription.where(uid: current_user.uid).where(mailing: no_creator)
   end
 
   def manage_inscriptions
@@ -85,8 +89,22 @@ class MailingsController < ApplicationController
   def create
     @mailing = Mailing.new(mailing_params)
     @mailing.creator = current_user.uid;
+    @mailing.nom = mailing_params[:nom].downcase
+    @mailing.mail = mailing_params[:mail].downcase
+    @mailing.type_mailing = mailing_params[:type_mailing].titleize
+    @types = Type.all
+
+    if EmailValidator.valid?(mailing_params[:mail].downcase)
+      if ! mailing_params[:mail].end_with? "@ares-ensiie.eu"
+        @wrong_mail = true;
+      end
+    else
+       @wrong_mail = true;
+    end
+
     respond_to do |format|
-      if @mailing.save
+      if !@wrong_mail && @mailing.save
+        Type.find_or_create_by(name: mailing_params[:type_mailing].titleize)
         format.html { redirect_to @mailing, notice: 'Mailing was successfully created.' }
         format.json { render :show, status: :created, location: @mailing }
 

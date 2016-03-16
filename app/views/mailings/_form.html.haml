@@ -1,10 +1,13 @@
 = form_for @mailing do |f|
   - if @mailing.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@mailing.errors.count, "error")} prohibited this mailing from being saved:"
+    .error
       %ul
         - @mailing.errors.full_messages.each do |msg|
           %li= msg
+  - if @wrong_mail
+    .error
+      %ul
+        %li L'email doit être de la forme "exemple@ares-ensiie.eu"
 
   .field
     = f.label :nom
@@ -12,9 +15,29 @@
   .field
     = f.label :mail
     = f.text_field :mail
-  .field
+  .field.select-field
     = f.label "Type"
-    = f.text_field :type_mailing
+    .input-field
+      %select#select{:name => "mailing[type_mailing]"}
+        = options_from_collection_for_select(@types, :name, :name)
   .actions
     %button.btn.waves-effect.waves-light{:name => "action", :type => "submit"}
       = texte
+
+
+:javascript
+  $(document).ready(
+
+    function() { $("#select").select2({
+      tags: true,
+      createSearchChoice:function(term, data) {
+        if ( $(data).filter( function() {
+          return this.text.localeCompare(term)===0;
+        }).length===0) {
+          return {id:term, text:term};
+        }
+      }
+    });
+
+    $("#mailing_mail").val("@ares-ensiie.eu");
+  });
