@@ -1,5 +1,6 @@
 class MailingsController < ApplicationController
-  before_action :set_mailing, only: [:show, :edit, :update, :destroy]
+  before_action :set_mailing, only: [:show, :edit, :update, :destroy, :manage_inscriptions]
+  before_action :check_rights, only: [:edit, :manage_inscriptions, :accepter_inscription, :refuser_inscription, :ajouter, :destroy]
 
   # GET /mailings
   # GET /mailings.json
@@ -31,7 +32,6 @@ class MailingsController < ApplicationController
   end
 
   def manage_inscriptions
-    @mailing = Mailing.find(params[:id])
     @inscriptions_invalide = Inscription.where(mailing_id: params[:id]).where(valide: false)
     @inscriptions_valide = Inscription.where(mailing_id: params[:id]).where(valide: true)
   end
@@ -70,14 +70,19 @@ class MailingsController < ApplicationController
   end
 
   def quitter
-    inscription = Inscription.where(mailing_id: params[:id]).where(uid: current_user.uid).first
-    if inscription != nil
-      inscription.delete
+    mailing = Mailing.find(params[:id])
+    if mailing.creator == current_user.uid
+      flash[:error] = "Impossible de quitter une mailing liste qui vous appartient"
+    else
+      inscription = Inscription.where(mailing_id: params[:id]).where(uid: current_user.uid).first
+      if inscription != nil
+        inscription.delete
+      end
     end
-    redirect_to request.referrer
+    redirect_to mailings_manage_path
   end
 
-  def ajouter 
+  def ajouter
     ldap = Net::LDAP.new
     ldap.host = LDAP_CONFIG["host"]
     ldap.port = LDAP_CONFIG["port"]
@@ -156,6 +161,14 @@ class MailingsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_mailing
       @mailing = Mailing.find(params[:id])
+    end
+
+    def check_rights
+      mailing = Mailing.find(params[:id])
+      if mailing.creator != current_user.uid
+        flash[:error] = "Impossible de gérer une mailing liste qui ne vous appartient pas"
+        redirect_to mailings_manage_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

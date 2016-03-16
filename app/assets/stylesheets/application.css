@@ -123,3 +123,7 @@ input[type=password]:focus:not([readonly])+label {
     background-color: white;
     border: 1px solid black;
 }
+
+.btn-floating.btn-large {
+    margin-top: 10px;
+}
