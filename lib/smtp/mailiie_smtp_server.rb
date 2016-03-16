@@ -18,7 +18,11 @@ class MailiieSmtpServer < MiniSmtpServer
 List-Post: <mailto:#{m.mail}>
 END_HEADER
       m.users().each do | user |
-        send_mail(m.mail, user[:mail][0], [header,body].join("\n\n"))
+        begin
+          send_mail(m.mail, user[:mail][0], [header,body].join("\n\n"))
+        rescue Exception
+          puts "Failed : #{user[:mail][0]}"
+        end
       end
     else
       m = Mailing.find_by_mail(to)
@@ -28,8 +32,12 @@ List-Post: <mailto:#{m.mail}>
 END_HEADER
         m.inscriptions.each do | inscription |
           if inscription.valide
-            mail = inscription.user().ldap()[:mail][0]
-            send_mail(m.mail, mail, [header,body].join("\n\n"))
+            begin
+              mail = inscription.user().ldap()[:mail][0]
+              send_mail(m.mail, mail, [header,body].join("\n\n"))
+            rescue Exception
+              puts "Failed ..."
+            end
           end
         end
       else
