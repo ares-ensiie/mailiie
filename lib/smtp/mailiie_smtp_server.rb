@@ -14,21 +14,21 @@ class MailiieSmtpServer < MiniSmtpServer
 
     m = CustomMailing.find_by_mail(to)
     if m then
-      m.users().each do | user |
-        header += <<END_HEADER
+      header += <<END_HEADER
 List-Post: <mailto:#{m.mail}>
 END_HEADER
-        send_mail(m.mail, user[:mail][0], subject, [header,body].join("\n\n"))
+      m.users().each do | user |
+        send_mail(m.mail, user[:mail][0], [header,body].join("\n\n"))
       end
     else
       m = Mailing.find_by_mail(to)
       if m then
+        header += <<END_HEADER
+List-Post: <mailto:#{m.mail}>
+END_HEADER
         m.inscriptions.each do | inscription |
           if inscription.valide
             mail = inscription.user().ldap()[:mail][0]
-            header += <<END_HEADER
-List-Post: <mailto:#{m.mail}>
-END_HEADER
             send_mail(m.mail, mail, [header,body].join("\n\n"))
           end
         end
