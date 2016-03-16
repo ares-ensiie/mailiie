@@ -1,0 +1,62 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+fr:
+  devise:
+    confirmations:
+      confirmed: "Votre adresse email à été confirmée."
+      send_instructions: "Vous allez recevoir un email avec les informations de confirmations dans quelques minutes."
+      send_paranoid_instructions: "Si votre adresse email est valide, vous allez recevoir un email contenant les informations de confirmation dans quelques minutes."
+    failure:
+      not_approved: "Votre compte doit encore être validé par un administrateur."
+      already_authenticated: "Vous êtes déjà connécté."
+      inactive: "Cotre compte n'a encore été activé."
+      invalid: "Votre %{authentication_keys} ou votre mot de passe est invalide."
+      locked: "Votre compte est vérouillé."
+      last_attempt: "Vous disposez d'un essai avant le vérouillage de votre compte"
+      not_found_in_database: "Votre %{authentication_keys} ou votre mot de passe est invalide."
+      timeout: "Votre session a éxpiré. Merci de vous reconnecter."
+      unauthenticated: "Vous devez vous connecter pour accéder a cette page."
+      unconfirmed: "Merci de confirmer votre email pour continuer."
+    mailer:
+      confirmation_instructions:
+        subject: "Instructions de confirmations"
+      reset_password_instructions:
+        subject: "Instructions de réinitialisation de votre mot de passe."
+      unlock_instructions:
+        subject: "Instruction de dévérouillage de votre compte"
+    omniauth_callbacks:
+      failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
+      success: "Successfully authenticated from %{kind} account."
+    passwords:
+      no_token: "Lien de confirmation invalide."
+      send_instructions: "Les instructions de réinitialisation de votre mot de passe vous ont été envoyées par e-mail."
+      send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
+      updated: "Votre mot de passe a bien été changé."
+      updated_not_active: "Votre mot de passe a bien été changé."
+    registrations:
+      destroyed: "Votre compte a bien été supprimé."
+      signed_up: "Création du compte éfféctuée"
+      signed_up_but_not_approved: "Votre compte a bien été créé cependant il n'a pas encore été validé par un administrateur."
+      signed_up_but_inactive: "Votre compte a bien été créé cependant il n'a pas encore été activé."
+      signed_up_but_locked: "Votre compte a bien été créé cependant il a été vérouillé."
+      signed_up_but_unconfirmed: "Un message de confirmation a été envoyé à votre adresse email. Merci de suivre les instructions présente dans cet email."
+      update_needs_confirmation: "Votre compte a bien été créé cependant il votre adresse email n'a pas été confirmée."
+      updated: "Votre compte a bien été créé."
+    sessions:
+      signed_in: "Vous êtes maintenant connecté."
+      signed_out: "Vous êtes maintenant déconnecté."
+      already_signed_out: "Vous êtes déconnecté."
+    unlocks:
+      send_instructions: "Vous allez recevoir un email avec les instructions pour débloquer votre compte dans quelques minutes."
+      send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
+      unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+  errors:
+    messages:
+      already_confirmed: "a déjà été confirmée"
+      confirmation_period_expired: "doit être confirmée en %{period}."
+      expired: "a éxpiré"
+      not_found: "introvable"
+      not_locked: "n'était pas vérouillé"
+      not_saved:
+        one: "1 erreure empêche %{resource} d'être enregistré:"
+        other: "%{count} erreures empêchent %{resource} d'être enregistré:"

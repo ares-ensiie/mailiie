@@ -6,10 +6,11 @@
       .card
         .card-content
           %b
-            = mailing.nom
-          %p
+            %p.one-line
+              = mailing.nom
+          %p.one-line
             = mailing.mail
-          %p
+          %p.one-line
             = mailing.type_mailing
         .card-action
           - if mailing.contains_user_invalide(current_user.uid)

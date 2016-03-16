@@ -26,6 +26,9 @@ gem "haml-rails", "~> 0.9"
 gem 'devise'
 gem 'net-ldap'
 
+gem "select2-rails"
+gem 'email_validator'
+
 gem "mini-smtp-server"
 gem 'gserver', '~> 0.0.1'
 
