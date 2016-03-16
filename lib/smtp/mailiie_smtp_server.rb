@@ -8,16 +8,24 @@ class MailiieSmtpServer < MiniSmtpServer
     subject = mail.subject
 
     puts "[SMTP] New mail from : #{from} to #{to}"
-    m = Mailing.find_by_mail(to)
+
+    m = CustomMailing.find_by_mail(to)
     if m then
-      m.inscriptions.each do | inscription |
-        if inscription.valide
-          mail = inscription.user().ldap()[:mail][0]
-          send_mail(m.mail, mail, subject, body)
-        end
+      m.users().each do | user |
+        send_mail(m.mail, user[:mail][0], subject, body)
       end
     else
-      send_mail("ares@ares-ensiie.eu",from, "Unkonwn mailing list", "Unkonwn mailing list")
+      m = Mailing.find_by_mail(to)
+      if m then
+        m.inscriptions.each do | inscription |
+          if inscription.valide
+            mail = inscription.user().ldap()[:mail][0]
+            send_mail(m.mail, mail, subject, body)
+          end
+        end
+      else
+        send_mail("ares@ares-ensiie.eu",from, "Unkonwn mailing list", "Unkonwn mailing list")
+      end
     end
   end
 
