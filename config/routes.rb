@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'mailings/refuser_inscription/:id/:uid' => 'mailings#refuser_inscription', as: "refuser_inscription"
   get 'mailings/manage_inscriptions/:id' => 'mailings#manage_inscriptions', as: "manage_inscriptions"
   get 'mailings/demande_inscription/:id' => 'mailings#demande_inscription', as: "demande_inscription"
+  get 'mailings/quitter/:id' => 'mailings#quitter', as: "quitter"
   resources :mailings
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

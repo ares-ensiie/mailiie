@@ -35,4 +35,4 @@
           %p.one-line
             = mailing.mailing.type_mailing
         .card-action
-          Quitter TO DO
+          = link_to "Quitter", quitter_path(mailing.mailing.id)

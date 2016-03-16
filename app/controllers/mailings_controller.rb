@@ -69,6 +69,14 @@ class MailingsController < ApplicationController
     redirect_to mailings_path
   end
 
+  def quitter
+    inscription = Inscription.where(mailing_id: params[:id]).where(uid: current_user.uid).first
+    if inscription != nil
+      inscription.delete
+    end
+    redirect_to request.referrer
+  end
+
   def ajouter 
     ldap = Net::LDAP.new
     ldap.host = LDAP_CONFIG["host"]
