@@ -32,6 +32,8 @@ gem 'email_validator'
 gem "mini-smtp-server"
 gem 'gserver', '~> 0.0.1'
 
+gem 'pg'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
