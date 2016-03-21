@@ -7,7 +7,7 @@ class MailiieSmtpServer < MiniSmtpServer
     body = mail.body
     subject = mail.subject
 
-    puts "[SMTP] New mail from : #{from} to #{to}"
+    $stdout.puts "[SMTP] New mail from : #{from} to #{to}"
 
     header = message_hash[:data].split("\n\n")[0]
     body = message_hash[:data].split("\n\n")[1..-1].join("\n\n")
@@ -21,7 +21,7 @@ END_HEADER
         begin
           send_mail(m.mail, user[:mail][0], [header,body].join("\n\n"))
         rescue Exception
-          puts "Failed : #{user[:mail][0]}"
+          $stdout.puts "Failed : #{user[:mail][0]}"
         end
       end
     else
@@ -33,10 +33,10 @@ END_HEADER
         m.inscriptions.each do | inscription |
           if inscription.valide
             begin
-              mail = inscription.user().ldap()[:mail][0]
+              mail = inscription.ldap_user()[:mail][0]
               send_mail(m.mail, mail, [header,body].join("\n\n"))
             rescue Exception
-              puts "Failed ..."
+              $stdout.puts "Failed ..."
             end
           end
         end
