@@ -152,4 +152,29 @@ table {
     background-color: #1E88E5;
 }
 
+span.badgev2 {
+    min-width: 1rem;
+    padding: 0 6px;
+    text-align: center;
+    line-height: inherit;
+    position: absolute;
+    right: 15px;
+    box-sizing: border-box;
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: #fff;
+    background-color: #ffab40;
+    border-radius: 2px;
+}
 
+.card .card-action a:hover {
+    color: #2e99f7 !important;
+}
+
+.card .card-action a {
+    color: #1E88E5 !important;
+}
+
+h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+}

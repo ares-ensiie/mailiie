@@ -1,0 +1,12 @@
+%h4 LES MAILING LISTES GENERALES
+
+- if @mailings.length > 0
+  - @mailings.each do |mailing|
+    .col.s12.m4
+      .card
+        .card-content
+          %p.one-line
+            = mailing.mail
+
+- else
+  %p Aucune mailing liste générale

@@ -1,7 +1,7 @@
-%h2 Les mailing listes
+%h4 LES MAILING LISTES
 
-- @mailings.each do |mailing|
-  - if ! mailing.contains_user_valide(current_user.uid)
+- if @mailings.length > 0
+  - @mailings.each do |mailing|
     .col.s12.m4
       .card
         .card-content
@@ -14,8 +14,10 @@
             = mailing.type_mailing
         .card-action
           - if mailing.contains_user_invalide(current_user.uid)
-            %a.deja-fait 
+            %a.deja-fait
               Demande déjà envoyée
           - else
             = link_to "S'inscrire", demande_inscription_path(mailing.id)
 
+- else
+  %p Aucune mailing liste disponible

@@ -1,4 +1,4 @@
-%h2 Mes mailing listes
+%h4 MES MAILING LISTES
 
 .row
   - @my_mailings.each do |mailing|
@@ -16,11 +16,13 @@
           =link_to 'éditer', edit_mailing_path(mailing)
           =link_to 'supprimer', mailing, :method => :delete
           %br
-          = link_to "Gérer les utilisateurs", manage_inscriptions_path(mailing.id)
+          = link_to "demandes", manage_inscriptions_path(mailing.id)
+          - if Inscription.where(mailing_id: mailing.id).where(valide: false).length > 0
+            %span.badgev2
+              = Inscription.where(mailing_id: mailing.id).where(valide: false).length
+          = link_to "inscrits", manage_inscrits_path(mailing.id)
 
-
-
-%h2 Mailing listes où je suis inscrit
+%h4 MAILING LISTES OU JE SUIS INSCRIT
 
 .row
   - @subscribed_mailings.each do |mailing|

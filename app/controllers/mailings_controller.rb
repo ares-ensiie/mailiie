@@ -1,17 +1,28 @@
 class MailingsController < ApplicationController
-  before_action :set_mailing, only: [:show, :edit, :update, :destroy, :manage_inscriptions]
-  before_action :check_rights, only: [:edit, :manage_inscriptions, :accepter_inscription, :refuser_inscription, :ajouter, :destroy]
+  before_action :set_mailing, only: [:show, :edit, :update, :destroy, :manage_inscriptions, :manage_inscrits]
+  before_action :check_rights, only: [:edit, :manage_inscrits, :manage_inscriptions, :accepter_inscription, :refuser_inscription, :ajouter, :destroy]
 
   # GET /mailings
   # GET /mailings.json
   def index
     #@mailings = Mailing.where.not(creator: current_user.uid)
-    @mailings = Mailing.where.not(creator: current_user.uid).order(nom: :asc)
+    mailings = Mailing.where.not(creator: current_user.uid).order(nom: :asc)
+    @mailings = []
+
+    mailings.each do |mailing|
+      if ! mailing.contains_user_valide(current_user.uid)
+          @mailings.push(mailing)
+      end
+    end
   end
 
   # GET /mailings/1
   # GET /mailings/1.json
   def show
+  end
+
+  def custom_mailings
+    @mailings = CustomMailing.all;
   end
 
   # GET /mailings/new
@@ -35,6 +46,9 @@ class MailingsController < ApplicationController
 
   def manage_inscriptions
     @inscriptions_invalide = Inscription.where(mailing_id: params[:id]).where(valide: false)
+  end
+
+  def manage_inscrits
     @inscriptions_valide = Inscription.where(mailing_id: params[:id]).where(valide: true)
   end
 
