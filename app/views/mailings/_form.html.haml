@@ -24,7 +24,6 @@
     %button.btn.waves-effect.waves-light{:name => "action", :type => "submit"}
       = texte
 
-
 :javascript
   $(document).ready(
 
@@ -39,5 +38,16 @@
       }
     });
 
-    $("#mailing_mail").val("@ares-ensiie.eu");
+    if ("#{@type}".length > 0) {
+      $("#select").val("#{@type}");
+      $("#select2-select-container").html("#{@type}");
+    }
+
+    if ("#{@mail}".length > 0) {
+      $("#mailing_mail").val("#{@mail}");
+    }
+    else {
+      $("#mailing_mail").val("@ares-ensiie.eu");
+    }
+
   });

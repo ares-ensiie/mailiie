@@ -23,6 +23,8 @@ class MailingsController < ApplicationController
   # GET /mailings/1/edit
   def edit
     @types = Type.all
+    @type = Mailing.find(params[:id]).type_mailing
+    @mail = Mailing.find(params[:id]).mail
   end
 
   def manage
