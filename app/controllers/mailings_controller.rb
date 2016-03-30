@@ -85,15 +85,18 @@ class MailingsController < ApplicationController
   end
 
   def ajouter
+    require 'will_paginate/array'
     ldap = Net::LDAP.new
     ldap.host = LDAP_CONFIG["host"]
     ldap.port = LDAP_CONFIG["port"]
     ldap.auth LDAP_CONFIG["auth_dn"], LDAP_CONFIG["auth_pass"]
     filter = Net::LDAP::Filter.eq( "objectClass", LDAP_CONFIG["user_object_class"])
     treebase = LDAP_CONFIG["search_base"]
-    @users = ldap.search( :base => treebase, :filter => filter, :scope => Net::LDAP::SearchScope_WholeSubtree)
+    users = ldap.search( :base => treebase, :filter => filter, :scope => Net::LDAP::SearchScope_WholeSubtree)
 
     @mailing = Mailing.find(params[:id]);
+    @users = users.paginate(:page => params[:page], :per_page => 12);
+
   end
 
   def ajouter_utilisateur

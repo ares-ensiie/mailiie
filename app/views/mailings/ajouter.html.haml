@@ -9,3 +9,5 @@
           = user[:mail].first
         %td.right-align
           = link_to 'Ajouter', accepter_inscription_path(@mailing.id, user[:uid].first), class: "btn-valider waves-effect waves-light btn"
+
+= will_paginate @users

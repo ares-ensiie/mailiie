@@ -127,3 +127,29 @@ input[type=password]:focus:not([readonly])+label {
 .btn-floating.btn-large {
     margin-top: 10px;
 }
+
+.pagination a li.active {
+    color: #fff;
+}
+
+.pagination {
+    text-align: center;
+}
+
+table {
+    margin-top: 10px;
+}
+
+.pagination li {
+    color: black;
+}
+
+.previous_page, .next_page {
+    vertical-align: middle;
+}
+
+.pagination li.active {
+    background-color: #1E88E5;
+}
+
+
