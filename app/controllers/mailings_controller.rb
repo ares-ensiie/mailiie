@@ -35,7 +35,8 @@ class MailingsController < ApplicationController
   def edit
     @types = Type.all
     @type = Mailing.find(params[:id]).type_mailing
-    @mail = Mailing.find(params[:id]).mail
+    mail = Mailing.find(params[:id]).mail
+    @mail = mail[0, mail.length - 15]
   end
 
   def manage
@@ -99,18 +100,8 @@ class MailingsController < ApplicationController
   end
 
   def ajouter
-    require 'will_paginate/array'
-    ldap = Net::LDAP.new
-    ldap.host = LDAP_CONFIG["host"]
-    ldap.port = LDAP_CONFIG["port"]
-    ldap.auth LDAP_CONFIG["auth_dn"], LDAP_CONFIG["auth_pass"]
-    filter = Net::LDAP::Filter.eq( "objectClass", LDAP_CONFIG["user_object_class"])
-    treebase = LDAP_CONFIG["search_base"]
-    users = ldap.search( :base => treebase, :filter => filter, :scope => Net::LDAP::SearchScope_WholeSubtree)
-
     @mailing = Mailing.find(params[:id]);
-    @users = users.paginate(:page => params[:page], :per_page => 12);
-
+    @users = User.search(params[:search]).paginate(:page => params[:page], :per_page => 15);
   end
 
   def ajouter_utilisateur
@@ -126,13 +117,15 @@ class MailingsController < ApplicationController
     @mailing.type_mailing = mailing_params[:type_mailing].titleize
     @types = Type.all
 
-    if EmailValidator.valid?(mailing_params[:mail].downcase)
-      if ! mailing_params[:mail].end_with? "@ares-ensiie.eu"
+    mail = mailing_params[:mail].downcase + "@ares-ensiie.eu"
+    if EmailValidator.valid?(mail)
+      if ! mail.end_with? "@ares-ensiie.eu"
         @wrong_mail = true;
       end
     else
        @wrong_mail = true;
     end
+    @mailing.mail = mail
 
     respond_to do |format|
       if !@wrong_mail && @mailing.save
@@ -155,11 +148,22 @@ class MailingsController < ApplicationController
   # PATCH/PUT /mailings/1
   # PATCH/PUT /mailings/1.json
   def update
+    mail = mailing_params[:mail].downcase + "@ares-ensiie.eu"
+    if EmailValidator.valid?(mail)
+      if ! mail.end_with? "@ares-ensiie.eu"
+        @wrong_mail = true;
+      end
+    else
+      @wrong_mail = true;
+    end
+    @mailing.mail = mail
+
     respond_to do |format|
-      if @mailing.update(mailing_params)
+      if !@wrong_mail && @mailing.update(mailing_params)
         format.html { redirect_to @mailing, notice: 'Mailing was successfully updated.' }
         format.json { render :show, status: :ok, location: @mailing }
       else
+        @types = Type.all
         format.html { render :edit }
         format.json { render json: @mailing.errors, status: :unprocessable_entity }
       end

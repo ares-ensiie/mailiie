@@ -9,18 +9,21 @@
       %ul
         %li L'email doit être de la forme "exemple@ares-ensiie.eu"
 
-  .field
+  .field.col.s12
     = f.label :nom
     = f.text_field :nom
-  .field
+  .field.col.s6
     = f.label :mail
     = f.text_field :mail
-  .field.select-field
+  .field.col.s6
+    %label.to-hide{:for => "info"} info
+    %input#mailing_mail.mail-style{:disabled => "disabled", :value => "@ares-ensiie.eu", :type => "text"}/
+  .field.select-field.col.s12
     = f.label "Type"
     .input-field
       %select#select{:name => "mailing[type_mailing]"}
         = options_from_collection_for_select(@types, :name, :name)
-  .actions
+  .actions.col.s12
     %button.btn.waves-effect.waves-light{:name => "action", :type => "submit"}
       = texte
 
@@ -47,7 +50,8 @@
       $("#mailing_mail").val("#{@mail}");
     }
     else {
-      $("#mailing_mail").val("@ares-ensiie.eu");
+      if ( $("#mailing_mail").val().length > 0) {
+        $("#mailing_mail").val($("#mailing_mail").val().substring(0,$("#mailing_mail").val().length - 15));
+      }
     }
-
   });

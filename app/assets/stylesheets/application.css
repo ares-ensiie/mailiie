@@ -178,3 +178,32 @@ span.badgev2 {
 h2, h3, h4 {
     font-family: 'Montserrat', sans-serif;
 }
+
+.input-field input[type=search] {
+    background-color: #fff;
+    color: #444;
+    border: 0;
+    box-shadow: none;
+}
+
+.input-field input[type=search] ~ .material-icons {
+    color: #444;
+}
+
+nav .input-field label i {
+    color: #444;
+}
+
+.search {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.to-hide {
+    color: white !important;
+}
+
+.mail-style {
+    border: 0 !important;
+    color: black !important;
+}

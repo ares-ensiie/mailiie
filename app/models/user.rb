@@ -20,4 +20,22 @@ class User < ActiveRecord::Base
       return nil
     end
   end
+
+  def self.search(search)
+    ldap = Net::LDAP.new
+    ldap.host = LDAP_CONFIG["host"]
+    ldap.port = LDAP_CONFIG["port"]
+    ldap.auth LDAP_CONFIG["auth_dn"], LDAP_CONFIG["auth_pass"]
+
+    if search
+      filter = Net::LDAP::Filter.eq( "objectClass", LDAP_CONFIG["user_object_class"]) & Net::LDAP::Filter.eq( "cn", "*"+search+"*" )
+      treebase = LDAP_CONFIG["search_base"]
+      ldap.search( :base => treebase, :filter => filter, :scope => Net::LDAP::SearchScope_WholeSubtree)
+    else
+      filter = Net::LDAP::Filter.eq( "objectClass", LDAP_CONFIG["user_object_class"])
+      treebase = LDAP_CONFIG["search_base"]
+      ldap.search( :base => treebase, :filter => filter, :scope => Net::LDAP::SearchScope_WholeSubtree)
+    end
+  end
+
 end

@@ -1,13 +1,23 @@
+%nav.search
+  .nav-wrapper
+    %form{:action => "/mailings/ajouter/#{@mailing.id}", :method => "get"}
+      .input-field.white
+        %input#search{:name => "search", :required => "", :type => "search"}/
+        %label{:for => "search"}
+          %i.material-icons search
+        %i.material-icons close
+
 %table.striped
   %tbody
   - @users.each do |user|
     - if ! @mailing.contains_user_valide(user[:uid].first)
       %tr
-        %td 
+        %td
           = user[:uid].first
-        %td 
+        %td
           = user[:mail].first
         %td.right-align
           = link_to 'Ajouter', accepter_inscription_path(@mailing.id, user[:uid].first), class: "btn-valider waves-effect waves-light btn"
+
 
 = will_paginate @users
