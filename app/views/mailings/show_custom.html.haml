@@ -1,0 +1,18 @@
+%h4
+  = @mailing.mail
+
+%p.margin-top
+  Inscrits
+%hr
+
+-if @users.total_entries > 0
+  %table.striped
+    %tbody
+    - @users.each do |user|
+      %tr
+        %td
+          = user.uid.to_s[2...-2]
+-else
+  %p Aucun utilisateur inscrit
+
+= will_paginate @users

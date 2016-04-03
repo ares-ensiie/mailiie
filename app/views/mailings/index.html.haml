@@ -6,8 +6,8 @@
       .card
         .card-content
           %b
-            %p.one-line
-              = mailing.nom
+            %p.one-line.mailing-link
+              = link_to mailing.nom, mailing
           %p.one-line
             = mailing.mail
           %p.one-line

@@ -9,15 +9,20 @@
   Inscrits
 %hr
 
-%table.striped
-  %tbody
-  - @inscriptions_valide.each do |ins|
-    -if ins.uid != current_user.uid
+- if @inscriptions_valide.length > 0
+  %table.striped
+    %tbody
+    - @inscriptions_valide.each do |ins|
       %tr
         %td
           = ins.uid
-        %td.right-align
-          = link_to 'Supprimer', refuser_inscription_path(@mailing.id, ins.uid), class: "btn-refuser waves-effect waves-light btn"
+        -if ins.uid != @mailing.creator
+          %td.right-align
+            = link_to 'Supprimer', refuser_inscription_path(@mailing.id, ins.uid), class: "btn-refuser waves-effect waves-light btn"
+        - else
+          %td.right-align
+            %span.admin Administrateur
+- else
+  %p Aucun inscrit
 
-
-
+= will_paginate @inscriptions_valide

@@ -1,15 +1,25 @@
-%p#notice= notice
+%h4
+  = @mailing.nom.upcase
 
 %p
-  %b Nom:
-  = @mailing.nom
-%p
-  %b Mail:
+  %b Mail :
   = @mailing.mail
 %p
-  %b Type mailing:
+  %b Type :
   = @mailing.type_mailing
 
-= link_to 'Edit', edit_mailing_path(@mailing)
-\|
-= link_to 'Back', mailings_path
+%p.margin-top
+  Inscrits
+%hr
+
+%table.striped
+  %tbody
+  - @inscriptions_valide.each do |ins|
+    %tr
+      %td
+        = ins.uid
+      -if ins.uid == @mailing.creator
+        %td.right-align
+          %span.admin Administrateur
+
+= will_paginate @inscriptions_valide

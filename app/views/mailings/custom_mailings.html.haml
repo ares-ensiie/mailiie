@@ -6,7 +6,7 @@
       .card
         .card-content
           %p.one-line
-            = mailing.mail
+            = link_to mailing.mail, show_custom_path(mailing.id)
 
 - else
   %p Aucune mailing liste générale

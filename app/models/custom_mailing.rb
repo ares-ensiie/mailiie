@@ -7,7 +7,12 @@ class CustomMailing < ActiveRecord::Base
     ldap.auth LDAP_CONFIG["auth_dn"], LDAP_CONFIG["auth_pass"]
 
     treebase = LDAP_CONFIG["search_base"]
-    results = ldap.search( :base => treebase, :filter => self.filter, :scope => Net::LDAP::SearchScope_WholeSubtree)
+
+    begin
+      results = ldap.search( :base => treebase, :filter => self.filter, :scope => Net::LDAP::SearchScope_WholeSubtree)
+    rescue
+      results = []
+    end
 
     return results
   end

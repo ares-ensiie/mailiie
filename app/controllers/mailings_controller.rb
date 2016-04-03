@@ -19,6 +19,12 @@ class MailingsController < ApplicationController
   # GET /mailings/1
   # GET /mailings/1.json
   def show
+    @inscriptions_valide = Inscription.where(mailing_id: params[:id]).where(valide: true).paginate(:page => params[:page], :per_page => 15);
+  end
+
+  def show_custom
+    @mailing = CustomMailing.find(params[:id])
+    @users = @mailing.users().paginate(:page => params[:page], :per_page => 15);
   end
 
   def custom_mailings
@@ -46,11 +52,11 @@ class MailingsController < ApplicationController
   end
 
   def manage_inscriptions
-    @inscriptions_invalide = Inscription.where(mailing_id: params[:id]).where(valide: false)
+    @inscriptions_invalide = Inscription.where(mailing_id: params[:id]).where(valide: false).paginate(:page => params[:page], :per_page => 15);
   end
 
   def manage_inscrits
-    @inscriptions_valide = Inscription.where(mailing_id: params[:id]).where(valide: true)
+    @inscriptions_valide = Inscription.where(mailing_id: params[:id]).where(valide: true).paginate(:page => params[:page], :per_page => 15);
   end
 
   def accepter_inscription

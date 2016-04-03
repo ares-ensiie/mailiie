@@ -9,12 +9,17 @@
   Inscriptions en attente
 %hr
 
-%table.striped
-  %tbody
-  - @inscriptions_invalide.each do |ins|
-    %tr
-      %td 
-        = ins.uid
-      %td.right-align
-        = link_to 'Valider', accepter_inscription_path(@mailing.id, ins.uid), class: "btn-valider waves-effect waves-light btn"
-        = link_to 'Refuser', refuser_inscription_path(@mailing.id, ins.uid), class: "btn-refuser waves-effect waves-light btn"
+- if @inscriptions_invalide.length > 0
+  %table.striped
+    %tbody
+    - @inscriptions_invalide.each do |ins|
+      %tr
+        %td
+          = ins.uid
+        %td.right-align
+          = link_to 'Valider', accepter_inscription_path(@mailing.id, ins.uid), class: "btn-valider waves-effect waves-light btn"
+          = link_to 'Refuser', refuser_inscription_path(@mailing.id, ins.uid), class: "btn-refuser waves-effect waves-light btn"
+- else
+  %p Aucune demande
+
+= will_paginate @inscriptions_invalide

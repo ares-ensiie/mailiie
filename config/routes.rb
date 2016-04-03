@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions" }, only: :sessions
   get 'mailings/manage' => 'mailings#manage'
   get 'mailings/ajouter/:id' => 'mailings#ajouter', as: "ajouter"
-  get 'mailings/custom_mailing' => 'mailings#custom_mailings', as: "custom-mailings"
+  get 'mailings/custom_mailing' => 'mailings#custom_mailings', as: "custom_mailings"
+  get 'mailings/show_custom/:id' => 'mailings#show_custom', as: "show_custom"
   get 'mailings/accepter_inscription/:id/:uid' => 'mailings#accepter_inscription', as: "accepter_inscription"
   get 'mailings/refuser_inscription/:id/:uid' => 'mailings#refuser_inscription', as: "refuser_inscription"
   get 'mailings/manage_inscrits/:id' => 'mailings#manage_inscrits', as: "manage_inscrits"
