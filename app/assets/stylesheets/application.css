@@ -96,6 +96,10 @@ input[type=password]:focus:not([readonly])+label {
     background-color: #EA5B51 !important;
 }
 
+.btn-admin {
+    background-color: #ffab40 !important;
+}
+
 .ajout-user {
     float: right;
 }

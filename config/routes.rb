@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'mailings/manage_inscriptions/:id' => 'mailings#manage_inscriptions', as: "manage_inscriptions"
   get 'mailings/demande_inscription/:id' => 'mailings#demande_inscription', as: "demande_inscription"
   get 'mailings/quitter/:id' => 'mailings#quitter', as: "quitter"
+  get 'mailings/set_admin/:id/:uid' => 'mailings#set_admin', as: "set_admin"
   resources :mailings
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

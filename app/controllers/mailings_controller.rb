@@ -1,6 +1,6 @@
 class MailingsController < ApplicationController
   before_action :set_mailing, only: [:show, :edit, :update, :destroy, :manage_inscriptions, :manage_inscrits]
-  before_action :check_rights, only: [:edit, :manage_inscrits, :manage_inscriptions, :accepter_inscription, :refuser_inscription, :ajouter, :destroy]
+  before_action :check_rights, only: [:edit, :manage_inscrits, :manage_inscriptions, :accepter_inscription, :refuser_inscription, :ajouter, :set_admin, :destroy]
 
   # GET /mailings
   # GET /mailings.json
@@ -111,6 +111,14 @@ class MailingsController < ApplicationController
   end
 
   def ajouter_utilisateur
+  end
+
+  def set_admin
+    mailing = Mailing.find(params[:id])
+    mailing.creator = params[:uid]
+    mailing.save
+
+    redirect_to mailings_manage_path
   end
 
   # POST /mailings

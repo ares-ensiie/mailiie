@@ -7,6 +7,9 @@
 %p
   %b Type :
   = @mailing.type_mailing
+%p
+  %b Administrateur :
+  = @mailing.creator
 
 %p.margin-top
   Inscrits
@@ -18,8 +21,5 @@
     %tr
       %td
         = ins.uid
-      -if ins.uid == @mailing.creator
-        %td.right-align
-          %span.admin Administrateur
 
 = will_paginate @inscriptions_valide
