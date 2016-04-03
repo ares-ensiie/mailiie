@@ -19,6 +19,7 @@
         -if ins.uid != @mailing.creator
           %td.right-align
             = link_to 'Supprimer', refuser_inscription_path(@mailing.id, ins.uid), class: "btn-refuser waves-effect waves-light btn"
+            %a.btn-admin.waves-effect.waves-light.btn.modal-trigger{:href => "#modal-admin", :user => ins.uid} Passer admin
         - else
           %td.right-align
             %span.admin Administrateur
@@ -26,3 +27,21 @@
   %p Aucun inscrit
 
 = will_paginate @inscriptions_valide
+
+#modal-admin.modal
+  .modal-content
+    %h4 Changement d'administrateur
+    %p Etes vous sûr de vouloir passer une autre personne administrateur ? En faisant cela, vous ne pourrez plus gérer cette mailing liste.
+  .modal-footer
+    = link_to 'Oui', mailings_path, class: "waves-effect waves-light btn-flat btn-sure"
+    %a.modal-action.modal-close.waves-effect.waves-light.btn-flat{:href => "#!"} Non
+
+:javascript
+   $(document).ready(function(){
+    $('.modal-trigger').leanModal();
+
+    $(".btn-admin").click(function(){
+      $(".btn-sure").attr("href", "/mailings/set_admin/#{@mailing.id}/"+$(this).attr("user"));
+    });
+  });
+

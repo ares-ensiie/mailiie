@@ -1,11 +1,11 @@
 %nav.search
   .nav-wrapper
-    %form{:action => "/mailings/ajouter/#{@mailing.id}", :method => "get"}
+    %form#search-form{:action => "/mailings/ajouter/#{@mailing.id}", :method => "get"}
       .input-field.white
-        %input#search{:name => "search", :required => "", :type => "search"}/
+        %input#search{:name => "search", :type => "search"}/
         %label{:for => "search"}
           %i.material-icons search
-        %i.material-icons close
+        %i#close-search.material-icons close
 
 %table.striped
   %tbody
@@ -21,3 +21,19 @@
 
 
 = will_paginate @users
+
+:javascript
+   $(document).ready(function(){
+    $('#close-search').click(function(){
+      window.location.href = "/mailings/ajouter/#{@mailing.id}";
+    });
+
+    $('#search-form').submit(function(event){
+      console.log("in");
+      if ($("#search").val().length == 0) {
+        event.preventDefault();
+        console.log("ho");
+        window.location.href = "/mailings/ajouter/#{@mailing.id}";
+      }
+    });
+  });

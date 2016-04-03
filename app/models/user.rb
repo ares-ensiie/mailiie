@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
     ldap.auth LDAP_CONFIG["auth_dn"], LDAP_CONFIG["auth_pass"]
 
     if search
-      filter = Net::LDAP::Filter.eq( "objectClass", LDAP_CONFIG["user_object_class"]) & Net::LDAP::Filter.eq( "cn", "*"+search+"*" )
+      filter = Net::LDAP::Filter.eq( "objectClass", LDAP_CONFIG["user_object_class"]) & (Net::LDAP::Filter.eq( "cn", "*"+search+"*" ) || Net::LDAP::Filter.eq( "uid", "*"+search+"*" ) || Net::LDAP::Filter.eq( "mail", "*"+search+"*" ))
       treebase = LDAP_CONFIG["search_base"]
       ldap.search( :base => treebase, :filter => filter, :scope => Net::LDAP::SearchScope_WholeSubtree)
     else
