@@ -7,42 +7,47 @@ class MailiieSmtpServer < MiniSmtpServer
     body = mail.body
     subject = mail.subject
 
-    $stdout.puts "[SMTP] New mail from : #{from} to #{to}"
+    $stdout.puts "[SMTP] New mail from : #{from} to #{to} (#{subject})"
 
-    header = message_hash[:data].split("\n\n")[0]
-    body = message_hash[:data].split("\n\n")[1..-1].join("\n\n")
-
-    m = CustomMailing.find_by_mail(to)
-    if m then
-      header += <<END_HEADER
-List-Post: <mailto:#{m.mail}>
-END_HEADER
-      m.users().each do | user |
-        begin
-          send_mail(m.mail, user[:mail][0], [header,body].join("\n\n"))
-        rescue Exception
-          $stdout.puts "Failed : #{user[:mail][0]}"
-        end
-      end
+    if from.nil? || from.strip.empty? || subject.casecmp("Undelivered Mail Returned to Sender").zero?
+      $stdout.puts "[SMTP] Message invalide"
     else
-      m = Mailing.find_by_mail(to)
+      header = message_hash[:data].split("\n\n")[0]
+      body = message_hash[:data].split("\n\n")[1..-1].join("\n\n")
+
+      m = CustomMailing.find_by_mail(to)
       if m then
         header += <<END_HEADER
-List-Post: <mailto:#{m.mail}>
-END_HEADER
-        m.inscriptions.each do | inscription |
-          if inscription.valide
-            begin
-              mail = inscription.ldap_user()[:mail][0]
-              send_mail(m.mail, mail, [header,body].join("\n\n"))
-            rescue Exception
-              $stdout.puts "Failed ..."
-            end
+  List-Post: <mailto:#{m.mail}>
+  END_HEADER
+        m.users().each do | user |
+          begin
+            send_mail(m.mail, user[:mail][0], [header,body].join("\n\n"))
+          rescue Exception => e
+            $stdout.puts "[SMTP] Failed : #{user[:mail][0]}"
+            $stdout.puts "[SMTP] #{e.message}"
           end
         end
       else
-        message = construct_message("ares@ares-ensiie.eu",from, "Unkonwn mailing list", "Unkonwn mailing list")
-        send_mail("ares@ares-ensiie.eu", from, message)
+        m = Mailing.find_by_mail(to)
+        if m then
+          header += <<END_HEADER
+  List-Post: <mailto:#{m.mail}>
+  END_HEADER
+          m.inscriptions.each do | inscription |
+            if inscription.valide
+              begin
+                mail = inscription.ldap_user()[:mail][0]
+                send_mail(m.mail, mail, [header,body].join("\n\n"))
+              rescue Exception
+                $stdout.puts "Failed ..."
+              end
+            end
+          end
+        else
+          message = construct_message("ares@ares-ensiie.eu",from, "Unkonwn mailing list", "Unkonwn mailing list")
+          send_mail("ares@ares-ensiie.eu", from, message)
+        end
       end
     end
   end
