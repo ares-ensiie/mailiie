@@ -34,6 +34,8 @@ gem 'gserver', '~> 0.0.1'
 
 gem 'pg'
 gem 'will_paginate-materialize'
+gem 'rails_12factor'
+gem 'rollbar'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
