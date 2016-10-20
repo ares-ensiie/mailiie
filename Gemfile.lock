@@ -122,6 +122,11 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (4.2.3)
       actionpack (= 4.2.3)
       activesupport (= 4.2.3)
@@ -131,6 +136,8 @@ GEM
     rdoc (4.2.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rollbar (2.12.0)
+      multi_json
     ruby_parser (3.6.6)
       sexp_processor (~> 4.1)
     sass (3.4.19)
@@ -189,6 +196,8 @@ DEPENDENCIES
   net-ldap
   pg
   rails (= 4.2.3)
+  rails_12factor
+  rollbar
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   select2-rails
@@ -199,4 +208,4 @@ DEPENDENCIES
   will_paginate-materialize
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
