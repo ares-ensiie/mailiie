@@ -14,7 +14,7 @@ class MailiieSmtpServer < MiniSmtpServer
       $stdout.puts "[SMTP] Message invalide"
     else
       header = message_hash[:data].split("\n\n")[0]
-      header = header.gsub(/subject.+\n/,"#{f_subject}\n")
+      header = header.gsub(/subject.+\n/i,"subject: #{f_subject}\n")
       body = message_hash[:data].split("\n\n")[1..-1].join("\n\n")
 
       m = CustomMailing.find_by_mail(to)
