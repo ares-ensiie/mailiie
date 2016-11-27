@@ -7,6 +7,7 @@ class MailiieSmtpServer < MiniSmtpServer
     body = mail.body
     subject = mail.subject
 
+    mail.subject = "[FACTIICE] #{mail.subject}"
     $stdout.puts "[SMTP] New mail from : #{from} to #{to} (#{subject})"
 
     if from.nil? || from.strip.empty? || subject.casecmp("Undelivered Mail Returned to Sender").zero?
