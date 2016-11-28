@@ -7,12 +7,14 @@ class MailiieSmtpServer < MiniSmtpServer
     body = mail.body
     subject = mail.subject
 
+    f_subject = "[FACTIICE] #{mail.subject}"
     $stdout.puts "[SMTP] New mail from : #{from} to #{to} (#{subject})"
 
     if from.nil? || from.strip.empty? || subject.casecmp("Undelivered Mail Returned to Sender").zero?
       $stdout.puts "[SMTP] Message invalide"
     else
       header = message_hash[:data].split("\n\n")[0]
+      header = header.gsub(/subject.+\n/i,"subject: #{f_subject}\n")
       body = message_hash[:data].split("\n\n")[1..-1].join("\n\n")
 
       m = CustomMailing.find_by_mail(to)
